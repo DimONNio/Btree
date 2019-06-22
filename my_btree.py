@@ -9,6 +9,8 @@ class MyBTree(object):
         self.root = None
         self.deep = 0
         self.height = 0
+        self.deepX = 0
+        self.heightX = 0
         print("root = None")
 
     '''def is_empty(self):
@@ -25,7 +27,7 @@ class MyBTree(object):
             print("self.root = item", data, self.deep, self.height)
         else:
             current_item = self.root
-            self.deep = 1
+            # self.deep = 1
             print("current_item = self.root", data, self.deep, self.height)
             while True:
                 if current_item.data <= item.data:
@@ -55,16 +57,20 @@ class MyBTree(object):
 
     def _print_subtree(self, sub_item: Item):
         """ Comment """
+        # dive-calculator
+        self.deepX += 1
         # 1. Check self.left
         if sub_item.left:
-            print(sub_item.data)
             self._print_subtree(sub_item.left)
         # 2. Print self.data
-        print(sub_item.data)
+        print('Елемент: ', sub_item.data, 'Глибина елементу: ', self.deepX)
         # 3. Check self.right
         if sub_item.right:
-            print(sub_item.data)
             self._print_subtree(sub_item.right)
+        self.heightX = max(self.heightX, self.deepX)
+        self.deepX -= 1
+
 
     def print(self):
         self._print_subtree(self.root)
+        print('Висота дерева = ', self.heightX)
